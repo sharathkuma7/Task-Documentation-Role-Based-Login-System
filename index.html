@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>loginggggggvs</title>
+</head>
+
+<body>
+    <div></div>
+    <h2>Login</h2>
+    <form id="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" value="" required><br><br>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" value="" required><br><br>
+        <button type="submit" id="btn">Login</button>
+        <p id="error"></p>
+    </form>
+    <script>
+        const users = {
+            admin: { username: "admin", password: "admin123", role: "admin" },
+            user: { username: "user", password: "user123", role: "user" }
+        };
+
+        localStorage.setItem("user",JSON.stringify(users))
+
+        var btn=document.getElementById("btn")
+        btn.addEventListener("click",function(e){
+            e.preventDefault()
+            data=JSON.parse(localStorage.getItem("user"))
+
+
+            name=document.getElementById("username").value;
+            pass=document.getElementById("password").value;
+            console.log(name,pass)
+
+            
+            if(data["admin"]["username"]==name && data["admin"]["password"]==pass){
+                window.location.assign("./admin.html")
+            }
+            if(data["user"]["username"]==name && data["user"]["password"]==pass){
+                window.location.assign("./user.html")
+            }if(name=="" && pass==""){
+              var p_get=document.getElementById("error")
+              p_get.innerText="invalid credintials"
+
+            }
+        })
+    </script>
+    </div>
+</body>
+
+</html>

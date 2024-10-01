@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+<body>
+    <div id="user" class="dashboard hidden"></div>
+        <h2>User Dashboard</h2>
+        <button id="logout">Logout</button>
+        <h3>Your Balance: $<span id="user-balance">0</span></h3>
+        <h3>Recent Transactions</h3>
+        <ul id="user-transactions"></ul>
+    </div>
+
+    <script>
+
+        var btn_get=document.getElementById("logout")
+        btn_get.addEventListener("click",()=>{
+            window.location.assign("./index.html")
+        })
+    </script>
+</body>
+</html>

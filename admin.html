@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+</head>
+
+<body>
+    <div id="admin"></div>
+    <h2>Admin Dashboard</h2>
+    <button id="logout">Logout</button>
+    <h3>Total Balance: $<span id="admin-balance">0</span></h3>
+    <h3>Transactions</h3>
+    <form id="admin-form">
+        <input type="text" id="transaction-desc" placeholder="Transaction Description" required>
+        <input type="number" id="transaction-amount" placeholder="Amount" required>
+        <select id="options">
+            <option value="income">Income</option>
+            <option value="savings">Savings</option>
+        </select>
+        <button type="submit" id="btn">Add Transaction</button>
+    </form>
+    <table id="admin-transactions">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <button id="export-pdf"><a href=""download="">EXPORT PDF</a></button>
+
+    <script>
+        let totalBalance = 0; // Initialize total balance
+
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const desc = document.getElementById("transaction-desc").value;
+            const amount = parseFloat(document.getElementById("transaction-amount").value);
+            const selection = document.getElementById("options").value;
+
+            if (!isNaN(amount) && amount > 0) {
+                // Create a new row for the transaction
+                const tr_cre = document.createElement("tr");
+
+                const td_cre = document.createElement("td");
+                td_cre.innerText = desc;
+
+                const td1_cre = document.createElement("td");
+                td1_cre.innerText = amount.toFixed(2);
+
+                const td2_cre = document.createElement("td");
+                td2_cre.innerText = selection;
+
+                const del_cre = document.createElement("button");
+                del_cre.innerText = "Delete";
+                del_cre.addEventListener("click", function () {
+                    totalBalance -= amount; // Adjust balance when deleting
+                    updateBalance();
+                    tr_cre.remove();
+                });
+
+                tr_cre.append(td_cre, td1_cre, td2_cre, del_cre);
+                document.querySelector("#admin-transactions tbody").append(tr_cre);
+
+          
+                if (selection === "income") {
+                    totalBalance += amount;
+                } else if (selection === "savings") {
+                    totalBalance += amount; 
+                }
+                updateBalance();
+
+                
+                document.getElementById("admin-form").reset();
+            } else {
+                alert("Please enter a valid amount.");
+            }
+        });
+
+        const btn_get = document.getElementById("logout");
+        btn_get.addEventListener("click", () => {
+            window.location.assign("./index.html");
+        });
+
+        function updateBalance() {
+            document.getElementById("admin-balance").innerText = totalBalance.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>
+
+
+
+    </script>
+</body>
+
+</html>
